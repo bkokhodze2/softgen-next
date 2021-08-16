@@ -1,0 +1,160 @@
+{
+  "posts": [
+    {
+      "id": 1629018273063,
+      "userId": 1,
+      "title": "3",
+      "body": "3",
+      "date": 1629018273063
+    },
+    {
+      "id": 1629018274688,
+      "userId": 1,
+      "title": "4",
+      "body": "4",
+      "date": 1629018274688
+    },
+    {
+      "id": 1629060898495,
+      "userId": "2",
+      "title": "qwe22ss",
+      "body": "qwe22sss",
+      "date": 1629060898495
+    },
+    {
+      "id": 1629092903312,
+      "userId": "3",
+      "title": "ia",
+      "body": "ia",
+      "date": 1629092903312
+    },
+    {
+      "id": 1629060913719,
+      "userId": "2",
+      "title": "d sad saw",
+      "body": " sad as das ",
+      "date": 1629060913719
+    },
+    {
+      "id": 1629122339800,
+      "userId": "1629112335356",
+      "title": "axali user",
+      "body": "axali",
+      "date": 1629122339800
+    },
+    {
+      "id": 1629122867367,
+      "userId": "1629112335356",
+      "title": "bakurrrw",
+      "body": "bakurrrw",
+      "date": 1629122867367
+    },
+    {
+      "id": 1629060918289,
+      "userId": "2",
+      "title": " sdas d dsc ds dc",
+      "body": " dsc sdc sdc asdaw d aw d asd sad sadas da sda sd asda wdawwwwwwwwwwwwww w  wwwwwwwwwwwww w d asd ds ",
+      "date": 1629060918289
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "userId": 1,
+      "role": 1,
+      "male": "true",
+      "name": "adminadmin",
+      "email": "admin@gmail.com",
+      "password": "qwe"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "role": 0,
+      "male": "true",
+      "name": "nika",
+      "email": "nikanika@gmail.com",
+      "password": "qwe"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "role": 0,
+      "male": "false",
+      "name": "ia",
+      "email": "iaia@gmail.com",
+      "password": "qwe"
+    },
+    {
+      "id": 1629121601505,
+      "role": 0,
+      "male": "false",
+      "name": "bbvvv",
+      "email": "sdsdds@mail.ru",
+      "password": "qweqweqwe"
+    },
+    {
+      "id": 1629112335356,
+      "userId": 1629112335356,
+      "role": 0,
+      "male": "false",
+      "name": "bakuri2222",
+      "email": "me@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": 1629122268851,
+      "userId": 1629122268851,
+      "role": 0,
+      "male": "false",
+      "name": "aaaaaaaaaaaaaaaaa",
+      "email": "aa@gmail.com",
+      "password": "qweqweqwe"
+    }
+  ],
+  "newUsers": [],
+  "newPosts": [
+    {
+      "id": 1629060908289,
+      "userId": "2",
+      "title": "qwe",
+      "body": "qwe2",
+      "date": 1629060908289
+    },
+    {
+      "id": 1629060911369,
+      "userId": "2",
+      "title": "asdasdas",
+      "body": "asdasdasd",
+      "date": 1629060911369
+    },
+    {
+      "id": 1629060921354,
+      "userId": "2",
+      "title": "as das d asd ",
+      "body": "ds f",
+      "date": 1629060921354
+    },
+    {
+      "id": 1629060923427,
+      "userId": "2",
+      "title": "12 12 1",
+      "body": "2 3 123",
+      "date": 1629060923427
+    },
+    {
+      "id": 1629060926846,
+      "userId": "2",
+      "title": "12 31 3",
+      "body": "1   232",
+      "date": 1629060926846
+    },
+    {
+      "id": 1629060932392,
+      "userId": "2",
+      "title": "adxawe ax ",
+      "body": "asd sds ",
+      "date": 1629060932392
+    }
+  ]
+}

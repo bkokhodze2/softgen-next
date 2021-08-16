@@ -1,0 +1,19 @@
+.login{
+    max-width: 300px;
+    width: calc(100% - 50px);
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    width: 20px;
+    margin-top: 50px;
+}
+.input {
+    margin-bottom: 30px;
+}
