@@ -5,12 +5,12 @@ import Head from "next/head";
 import { ThemeProvider } from "@material-ui/core/styles";
 import "@fortawesome/fontawesome-svg-core/styles.css"; // import Font Awesome CSS
 import { config } from "@fortawesome/fontawesome-svg-core";
-config.autoAddCss = false;
+import { appWithTranslation } from "next-i18next";
 import theme from "../src/theme";
-
+config.autoAddCss = false;
 import { Provider } from "next-auth/client";
 
-export default function MyApp(props) {
+const MyApp = (props) => {
 	const { Component, pageProps } = props;
 	React.useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -37,7 +37,7 @@ export default function MyApp(props) {
 					{`
 						body {
 							font-family: "Roboto", sans-serif;
-							margin:0px;
+							margin: 0px;
 						}
 						a {
 							color: inherit;
@@ -48,9 +48,10 @@ export default function MyApp(props) {
 			</>
 		</Provider>
 	);
-}
+};
 
 MyApp.propTypes = {
 	Component: PropTypes.elementType.isRequired,
 	pageProps: PropTypes.object.isRequired,
 };
+export default appWithTranslation(MyApp);

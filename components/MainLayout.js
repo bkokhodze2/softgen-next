@@ -24,6 +24,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
 import style from "../styles/index.module.scss";
 import { useRouter } from "next/router";
+import Head from "next/head";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function MainLayout({ children, title = "user blog", userId }) {
+export function MainLayout({ children, title = "user blog",keyWords="blog" ,userId }) {
 	const styles = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
@@ -103,6 +104,11 @@ export function MainLayout({ children, title = "user blog", userId }) {
 	const router = useRouter();
 	return (
 		<div className={styles.root}>
+			<Head>
+				<title>{title}</title>
+				<meta name="keywords" content={keyWords}></meta>
+				<meta name="description" content="this is admin page"></meta>
+			</Head>
 			<CssBaseline />
 			<AppBar
 				position="fixed"

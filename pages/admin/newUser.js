@@ -121,7 +121,7 @@ export default function newUserPage({ newUsers: serverPosts }) {
 	};
 
 	return (
-		<AdminLayout>
+		<AdminLayout title="new users" keyWords="blog new users admin">
 			{/* {loading && <p>is loading...</p>} */}
 			{openAlert && <CustomizedSnackbars message={alertMessage} success={isAlertSuccess} />}
 			<TableContainer className={styles.tableWrap} component={Paper}>

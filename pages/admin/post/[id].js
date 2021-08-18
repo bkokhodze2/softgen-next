@@ -10,11 +10,15 @@ import classes from "/styles/post.module.scss";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Router from "next/router";
+
+import { useTranslation } from "next-i18next";
 import { faArrowLeft, faTrashAlt, faEllipsisV, faEdit } from "@fortawesome/free-solid-svg-icons";
 export default function post({ post: serverPost }) {
 	const [post, setPost] = useState(serverPost);
 	const [userinfo, setUserinfo] = useState([]);
 	const router = useRouter();
+	const { t, i18n } = useTranslation("common");
+
 	useEffect(() => {
 		async function load() {
 			const response = await fetch(`http://localhost:4200/posts/${router.query.id}`);
@@ -44,7 +48,8 @@ export default function post({ post: serverPost }) {
 				<Button className={classes.goBack__Btn} variant="contained">
 					<a onClick={() => Router.back()}>
 						{" "}
-						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>go back to posts
+						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
+						{t("goBackToPosts")}
 					</a>
 				</Button>
 			</div>
@@ -66,7 +71,7 @@ export default function post({ post: serverPost }) {
 	);
 }
 
-post.getInitialProps = async ({ query, req }) => {
+post.getInitialProps = async ({ query, req, locale }) => {
 	if (!req) {
 		return { post: null };
 	}
@@ -77,5 +82,6 @@ post.getInitialProps = async ({ query, req }) => {
 
 	return {
 		post,
+		// ...(await serverSideTranslations(locale, ["common"])),
 	};
 };

@@ -1,0 +1,18 @@
+{
+	"signIn": "sign in",
+	"signUp": "sign up",
+	"posts": "posts",
+	"readMore": "read more",
+	"changeLanguage": "change language",
+	"postsTable": "posts table",
+	"approvePosts": "approve post",
+	"newUsers": "new users",
+	"logOut": "log out",
+	"settings": "settings",
+	"edit": "edit",
+	"delete": "delete",
+	"yes": "yes",
+	"no": "no",
+	"editPost": "edit post",
+	"goBackToPosts": "go back to posts"
+}

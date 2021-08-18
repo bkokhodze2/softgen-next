@@ -3,28 +3,18 @@ import { MainLayout } from "../../components/MainLayout";
 import { AdminLayout } from "../../components/AdminLayout";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 import classes from "../../styles/index.module.scss";
 import Post from "../admin/post";
 
-export default function Dashboard({ posts: serverPosts }) {
-	const [posts, setPostss] = useState(serverPosts);
+export default function Dashboard({ posts }) {
+	const { t, i18n } = useTranslation("common");
 
 	const router = useRouter();
 
 	const userId = router.query.userId;
-	async function load() {
-		const response = await fetch("http://localhost:4200/posts");
-		const data = await response.json();
-		setPostss(data);
-	}
-	useEffect(() => {
-		// if (userId != 1) {
-		// 	router.push("/user");
-		// }
-		if (!serverPosts) {
-			load();
-		}
-	}, []);
 
 	if (!posts) {
 		return (
@@ -38,7 +28,7 @@ export default function Dashboard({ posts: serverPosts }) {
 		<AdminLayout userId={userId}>
 			<ul className={classes.ul}>
 				{posts.map((item, index) => (
-					<Post admin load={load} user={item.userId} id={item.id} key={index} title={item.title} body={item.body} />
+					<Post admin load={false} user={item.userId} id={item.id} key={index} title={item.title} body={item.body} />
 				))}
 				{/* {JSON.stringify(posts)} */}
 			</ul>
@@ -46,14 +36,17 @@ export default function Dashboard({ posts: serverPosts }) {
 	);
 }
 
-Dashboard.getInitialProps = async ({ req }) => {
-	if (!req) {
-		return { post: null };
-	}
+export async function getStaticProps({ req, locale }) {
+	// if (!req) {
+	// 	return { props: { post: [] } };
+	// }
 	const response = await fetch("http://localhost:4200/posts");
 	const posts = await response.json();
 
 	return {
-		posts,
+		props: {
+			posts,
+			...(await serverSideTranslations(locale, ["common"])),
+		},
 	};
-};
+}

@@ -15,7 +15,11 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import MailIcon from "@material-ui/icons/Mail";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
@@ -24,11 +28,19 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
 import style from "../styles/index.module.scss";
 import { useRouter } from "next/router";
-const drawerWidth = 240;
+import Head from "next/head";
+
+import { useTranslation } from "next-i18next";
+
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: "flex",
+	},
+	formControl: {
+		margin: theme.spacing(1),
+		minWidth: 120,
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
@@ -88,10 +100,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function AdminLayout({ children, title = "blog", userId }) {
+export function AdminLayout({ children, title = "blog", keyWords = "blog", userId }) {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(true);
+	const router = useRouter();
+
+	const { t, i18n } = useTranslation("common");
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -100,9 +115,22 @@ export function AdminLayout({ children, title = "blog", userId }) {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-	const router = useRouter();
+
+	const changeLan = (lan) => {
+		i18n.changeLanguage(lan);
+
+		// you can do interpolation
+		router.push(router.pathname, router.query, { locale: `${lan}` });
+		// router.push({ pathname, query }, asPath, { locale: nextLocale });
+	};
+
 	return (
 		<div className={classes.root}>
+			<Head>
+				<title>{title}</title>
+				<meta name="keywords" content={keyWords}></meta>
+				<meta name="description" content="this is admin page"></meta>
+			</Head>
 			<CssBaseline />
 			<AppBar
 				position="fixed"
@@ -155,7 +183,7 @@ export function AdminLayout({ children, title = "blog", userId }) {
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="posts" />
+							<ListItemText primary={t("posts")} />
 						</ListItem>
 					</Link>
 					<Link className={router.pathname == "/admin/allPostTable" ? "active-nav" : ""} href={"/admin/allPostTable"}>
@@ -163,7 +191,7 @@ export function AdminLayout({ children, title = "blog", userId }) {
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="postTable" />
+							<ListItemText primary={t("postsTable")} />
 						</ListItem>
 					</Link>
 					<Link href={"/admin/approvePosts2"}>
@@ -171,7 +199,7 @@ export function AdminLayout({ children, title = "blog", userId }) {
 							<ListItemIcon>
 								<PostAddIcon />
 							</ListItemIcon>
-							<ListItemText primary="approve posts" />
+							<ListItemText primary={t("approvePosts")} />
 						</ListItem>
 					</Link>
 					<Link href={"/admin/newUser"}>
@@ -179,24 +207,40 @@ export function AdminLayout({ children, title = "blog", userId }) {
 							<ListItemIcon>
 								<GroupAddIcon />
 							</ListItemIcon>
-							<ListItemText primary="new users" />
+							<ListItemText primary={t("newUsers")} />
 						</ListItem>
 					</Link>
 				</List>
 				<Divider />
 				<List>
 					<ListItem button>
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="grouped-select">{t("changeLanguage")}</InputLabel>
+							<Select defaultValue="1" id="grouped-select">
+								<MenuItem onClick={() => changeLan("en")} value={1}>
+									ENG
+								</MenuItem>
+								<MenuItem onClick={() => changeLan("ka")} value={2}>
+									GEO
+								</MenuItem>
+								<MenuItem onClick={() => changeLan("ru")} value={3}>
+									RUS
+								</MenuItem>
+							</Select>
+						</FormControl>
+					</ListItem>
+					<ListItem button>
 						<ListItemIcon>
 							<SettingsIcon />
 						</ListItemIcon>
-						<ListItemText primary="setting" />
+						<ListItemText primary={t("settings")} />
 					</ListItem>
 					<Link href={"/"}>
 						<ListItem button>
 							<ListItemIcon>
 								<ExitToAppIcon />
 							</ListItemIcon>
-							<ListItemText primary="log out" />
+							<ListItemText primary={t("logOut")} />
 						</ListItem>
 					</Link>
 				</List>
@@ -245,3 +289,12 @@ export function AdminLayout({ children, title = "blog", userId }) {
 		</div>
 	);
 }
+
+// export async function getStaticProps({ locale }) {
+// 	return {
+// 		props: {
+// 			...(await serverSideTranslations(locale, ["common"])),
+// 			// Will be passed to the page component as props
+// 		},
+// 	};
+// }

@@ -1,24 +1,10 @@
 {
   "posts": [
     {
-      "id": 1629018273063,
-      "userId": 1,
-      "title": "3",
-      "body": "3",
-      "date": 1629018273063
-    },
-    {
-      "id": 1629018274688,
-      "userId": 1,
-      "title": "4",
-      "body": "4",
-      "date": 1629018274688
-    },
-    {
       "id": 1629060898495,
       "userId": "2",
-      "title": "qwe22ss",
-      "body": "qwe22sss",
+      "title": "qwe22sss123",
+      "body": "qwe22sss123",
       "date": 1629060898495
     },
     {
@@ -55,6 +41,13 @@
       "title": " sdas d dsc ds dc",
       "body": " dsc sdc sdc asdaw d aw d asd sad sadas da sda sd asda wdawwwwwwwwwwwwww w  wwwwwwwwwwwww w d asd ds ",
       "date": 1629060918289
+    },
+    {
+      "id": 1629060911369,
+      "userId": "2",
+      "title": "asdasdas",
+      "body": "asdasdasd",
+      "date": 1629060911369
     }
   ],
   "users": [
@@ -110,6 +103,15 @@
       "name": "aaaaaaaaaaaaaaaaa",
       "email": "aa@gmail.com",
       "password": "qweqweqwe"
+    },
+    {
+      "id": 1629181576018,
+      "userId": 1629181576018,
+      "role": 0,
+      "male": "false",
+      "name": "meme",
+      "email": "meme@gmail.com",
+      "password": "123123123"
     }
   ],
   "newUsers": [],
@@ -120,13 +122,6 @@
       "title": "qwe",
       "body": "qwe2",
       "date": 1629060908289
-    },
-    {
-      "id": 1629060911369,
-      "userId": "2",
-      "title": "asdasdas",
-      "body": "asdasdasd",
-      "date": 1629060911369
     },
     {
       "id": 1629060921354,
@@ -155,6 +150,13 @@
       "title": "adxawe ax ",
       "body": "asd sds ",
       "date": 1629060932392
+    },
+    {
+      "id": 1629181956856,
+      "userId": "1629181576018",
+      "title": "as",
+      "body": "asas",
+      "date": 1629181956856
     }
   ]
 }

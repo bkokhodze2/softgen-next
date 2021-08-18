@@ -134,7 +134,7 @@ export default function RenderExpandCellGrid() {
 	];
 
 	return (
-		<AdminLayout>
+		<AdminLayout title="all posts" keyWords="blog all posts admin">
 			<div style={{ height: 500, width: "100%" }}>
 				<DataGrid columns={columns} disableSelectionOnClick pageSize={7} rows={newPost} />
 			</div>

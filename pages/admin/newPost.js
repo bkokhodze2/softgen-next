@@ -118,7 +118,7 @@ export default function newPostPage({ newpost: serverPosts }) {
 	};
 
 	return (
-		<AdminLayout>
+		<AdminLayout title="new posts" keyWords="blog new posts admin">
 			{/* {loading && <p>is loading...</p>} */}
 			{openAlert && <CustomizedSnackbars message={alertMessage} success={isAlertSuccess} />}
 			<TableContainer className={styles.tableWrap} component={Paper}>
