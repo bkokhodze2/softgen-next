@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { MainLayout } from "../../../components/MainLayout";
-import Post from ".";
+import Post from "../post";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 

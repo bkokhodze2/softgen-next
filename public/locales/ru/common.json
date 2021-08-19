@@ -14,5 +14,20 @@
 	"yes": "yes",
 	"no": "no",
 	"editPost": "edit post",
-	"goBackToPosts": "go back to posts"
+	"goBackToPosts": "go back to posts",
+	"close": "close",
+	"submit": "submit",
+	"addNewPost": "add new post",
+	"deleteThisPost": "delete this post ?",
+	"areYouSure": "are you sure ?",
+	"postTitle": "post title",
+	"postBody": "post body",
+	"haveAccount": "Do you have an account ?",
+	"forgotPassword": "forgot password ?",
+	"rememberMe": "remember me",
+	"loading": "loading",
+	"username": "username",
+	"enterUsername": "enter username",
+	"password": "password",
+	"enterpassword": "enter password"
 }

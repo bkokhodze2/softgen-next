@@ -6,7 +6,7 @@ import Popper from "@material-ui/core/Popper";
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import { AdminLayout } from "../../components/AdminLayout";
+import { AdminLayout } from "../../../components/AdminLayout";
 const useStyles = makeStyles(() => ({
 	root: {
 		alignItems: "center",

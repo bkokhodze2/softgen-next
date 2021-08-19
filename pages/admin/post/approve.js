@@ -1,11 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
-import { AdminLayout } from "../../components/AdminLayout";
+import { AdminLayout } from "../../../components/AdminLayout";
 import Button from "@material-ui/core/Button";
 import MaterialTable from "material-table";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import CustomizedSnackbars from "../../components/alert";
-import classes from "../../styles/index.module.scss";
+import CustomizedSnackbars from "../../../components/alert";
+import classes from "../../../styles/index.module.scss";
 
 export default function ApprovePost({ newpost: serverPosts }) {
 	const [newPost, setNewPost] = useState([]);

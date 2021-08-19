@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
-import { MainLayout } from "../../../components/MainLayout";
-import Post from "../post";
+import { MainLayout } from "../../../../components/MainLayout";
+import Post from "../../post";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import classes from "/styles/post.module.scss";
@@ -73,6 +73,7 @@ export default function post({ post: serverPost }) {
 			.then((json) => {
 				load();
 			});
+		Router.back();
 	};
 
 	const savebnt = () => {
@@ -90,7 +91,6 @@ export default function post({ post: serverPost }) {
 			<div className={classes.goBack}>
 				<Button onClick={() => Router.back()} className={classes.goBack__Btn} variant="contained">
 					<a>
-						{" "}
 						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>go back to posts
 					</a>
 				</Button>

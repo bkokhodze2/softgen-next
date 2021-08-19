@@ -18,13 +18,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
+import { useTranslation } from "next-i18next";
 export default function Post(props) {
 	const { title, body, id, full, user, currentUSer, load, admin } = props;
 	const [userinfo, setUserinfo] = useState([]);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
-
+	const { t, i18n } = useTranslation("common");
 	const API_HOST = "http://localhost:4200";
 	const INVENTORY_API_URL = `${API_HOST}/posts`;
 
@@ -81,23 +81,24 @@ export default function Post(props) {
 	};
 
 	const renderAuthButton = () => {
-		console.log("user---", user, "currentUser---", currentUSer);
 		if (admin || user == currentUSer) {
 			return (
 				<>
 					<Button className={classes.postEdit} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClickMenu}>
-						edit
+						{t("edit")}
 						<FontAwesomeIcon className={classes.icon} icon={faEllipsisV}></FontAwesomeIcon>
 					</Button>
 
 					<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleCloseMenu}>
 						<MenuItem className={classes.menuItem} onClick={() => handleClickOpen(id)}>
-							<FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>delete
+							<FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
+							{t("delete")}
 						</MenuItem>
 						<MenuItem className={classes.menuItem}>
-							<Link href={`editPost/[id]`} as={`editPost/${id}`}>
+							<Link href={`post/[id]/edit`} as={`post/${id}/edit`}>
 								<a>
-									<FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>edit posts
+									<FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+									{t("editPost")}
 								</a>
 							</Link>
 						</MenuItem>
@@ -110,16 +111,16 @@ export default function Post(props) {
 	return (
 		<>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-				<DialogTitle id="alert-dialog-title">{"are you sure ?"}</DialogTitle>
+				<DialogTitle id="alert-dialog-title">{t("no")}</DialogTitle>
 				<DialogContent>
-					<DialogContentText id="alert-dialog-description">delete this post ?</DialogContentText>
+					<DialogContentText id="alert-dialog-description">{t("deleteThisPost")}</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => handleClose(id)} color="primary">
-						yes
+						{t("yes")}
 					</Button>
 					<Button onClick={closeDialog} color="primary" autoFocus>
-						no
+						{t("no")}
 					</Button>
 				</DialogActions>
 			</Dialog>
@@ -128,7 +129,8 @@ export default function Post(props) {
 					<Button className={classes.goBack__Btn} variant="contained">
 						<a onClick={() => Router.back()}>
 							{" "}
-							<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>go back to posts
+							<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
+							{t("goBackToPosts")}
 						</a>
 					</Button>
 				</div>
@@ -151,7 +153,7 @@ export default function Post(props) {
 						<div className={classes.readMoreWrap}>
 							<Link href={`post/[id]`} as={`post/${id}`} className={classes.btn}>
 								<button className={styles.primary}>
-									<a>read more</a>
+									<a>{t("readMore")}</a>
 								</button>
 							</Link>
 						</div>

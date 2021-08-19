@@ -93,8 +93,9 @@ export default function Post(props) {
 						<FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
 						{t("delete")}
 					</MenuItem>
+					{/* href={`post/[id]`} as={`post/${id}`} */}
 					<MenuItem className={classes.menuItem}>
-						<Link href={`editPost/[id]`} as={`editPost/${id}`} className={classes.btn}>
+						<Link href={`post/[id]/edit`} as={`post/${id}/edit`} className={classes.btn}>
 							<a>
 								<FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
 								{t("editPost")}
@@ -109,9 +110,9 @@ export default function Post(props) {
 	return (
 		<>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-				<DialogTitle id="alert-dialog-title">{"are you sure ?"}</DialogTitle>
+				<DialogTitle id="alert-dialog-title">{t("areYouSure")}</DialogTitle>
 				<DialogContent>
-					<DialogContentText id="alert-dialog-description">delete this post ?</DialogContentText>
+					<DialogContentText id="alert-dialog-description">{t("deleteThisPost")}</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => handleClose(id)} color="primary">

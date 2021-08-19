@@ -15,21 +15,29 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import PostAddIcon from "@material-ui/icons/PostAdd";
+import InputLabel from "@material-ui/core/InputLabel";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
+import FormControl from "@material-ui/core/FormControl";
 import style from "../styles/index.module.scss";
 import { useRouter } from "next/router";
 import Head from "next/head";
-const drawerWidth = 240;
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+
+import { useTranslation } from "next-i18next";
+
+const drawerWidth = 290;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: "flex",
+	},
+	formControl: {
+		margin: theme.spacing(1),
+		minWidth: 140,
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
@@ -89,11 +97,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function MainLayout({ children, title = "user blog",keyWords="blog" ,userId }) {
+export function MainLayout({ children, title = "user blog", keyWords = "blog", userId }) {
 	const styles = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
-
+	const router = useRouter();
+	const { t, i18n } = useTranslation("common");
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -101,7 +110,12 @@ export function MainLayout({ children, title = "user blog",keyWords="blog" ,user
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
-	const router = useRouter();
+
+	const changeLan = (lan) => {
+		i18n.changeLanguage(lan);
+		router.push(router.pathname, router.query, { locale: `${lan}` });
+	};
+
 	return (
 		<div className={styles.root}>
 			<Head>
@@ -160,23 +174,39 @@ export function MainLayout({ children, title = "user blog",keyWords="blog" ,user
 						<ListItemIcon>
 							<GroupAddIcon />
 						</ListItemIcon>
-						<ListItemText primary="new users" />
+						<ListItemText primary={t("newUsers")} />
 					</ListItem>
 				</List>
 				<Divider />
 				<List>
 					<ListItem button>
+						<FormControl className={styles.formControl}>
+							<InputLabel htmlFor="grouped-select">{t("changeLanguage")}</InputLabel>
+							<Select defaultValue="1" id="grouped-select">
+								<MenuItem onClick={() => changeLan("en")} value={1}>
+									ENG
+								</MenuItem>
+								<MenuItem onClick={() => changeLan("ka")} value={2}>
+									GEO
+								</MenuItem>
+								<MenuItem onClick={() => changeLan("ru")} value={3}>
+									RUS
+								</MenuItem>
+							</Select>
+						</FormControl>
+					</ListItem>
+					<ListItem button>
 						<ListItemIcon>
 							<SettingsIcon />
 						</ListItemIcon>
-						<ListItemText primary="setting" />
+						<ListItemText primary={t("settings")} />
 					</ListItem>
 					<Link href={"/"}>
 						<ListItem button>
 							<ListItemIcon>
 								<ExitToAppIcon />
 							</ListItemIcon>
-							<ListItemText primary="log out" />
+							<ListItemText primary={t("logOut")} />
 						</ListItem>
 					</Link>
 				</List>

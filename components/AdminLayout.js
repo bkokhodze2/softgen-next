@@ -186,7 +186,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 							<ListItemText primary={t("posts")} />
 						</ListItem>
 					</Link>
-					<Link className={router.pathname == "/admin/allPostTable" ? "active-nav" : ""} href={"/admin/allPostTable"}>
+					<Link className={router.pathname == "/admin/post/table" ? "active-nav" : ""} href={"/admin/post/table"}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
@@ -194,7 +194,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 							<ListItemText primary={t("postsTable")} />
 						</ListItem>
 					</Link>
-					<Link href={"/admin/approvePosts2"}>
+					<Link href={"/admin/post/approve"}>
 						<ListItem button>
 							<ListItemIcon>
 								<PostAddIcon />

@@ -13,6 +13,8 @@ import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import the FontAwesomeIcon component
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"; // import the icons you need
 import { AdminLayout } from "./../../components/AdminLayout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function posts({ posts: serverPosts }) {
 	const [posts, setPostss] = useState(serverPosts);
@@ -24,6 +26,7 @@ export default function posts({ posts: serverPosts }) {
 	const [openAlert, setOpenAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 	const [isAlertSuccess, setIsAlertSuccess] = useState(false);
+	const { t, i18n } = useTranslation("common");
 
 	const router = useRouter();
 	const userId = router.query.userId;
@@ -92,6 +95,7 @@ export default function posts({ posts: serverPosts }) {
 			CheckError(response);
 		});
 		setOpenAlert(false);
+		setIsOpen(false);
 	};
 
 	if (!posts) {
@@ -101,8 +105,6 @@ export default function posts({ posts: serverPosts }) {
 			</MainLayout>
 		);
 	}
-	console.log(userInfo, "userinfo");
-
 	{
 		return (
 			<MainLayout userId={userId}>
@@ -110,16 +112,16 @@ export default function posts({ posts: serverPosts }) {
 
 				<div className={classes.addBtn}>
 					<Button onClick={() => setIsOpen(!isOpen)} variant="contained">
-						{isOpen ? "close" : "add new post"}
+						{isOpen ? t("close") : t("addNewPost")}
 					</Button>
 				</div>
 				{isOpen && (
 					<div className={classes.formWrap}>
 						<form className={`${style.root}  ${classes.form}`} noValidate autoComplete="off">
-							<TextField value={newTitle} onChange={(e) => setNewTitle(e.target.value)} className={classes.input} id="filled-basic" label="post title" variant="filled" rows="2" />
-							<TextField value={newBody} onChange={(e) => setNewBody(e.target.value)} className={classes.input} id="filled-basic" label="post body" variant="filled" rows="2" />
+							<TextField value={newTitle} onChange={(e) => setNewTitle(e.target.value)} className={classes.input} id="filled-basic" label={t("postTitle")} variant="filled" rows="2" />
+							<TextField value={newBody} onChange={(e) => setNewBody(e.target.value)} className={classes.input} id="filled-basic" label={t("postBody")} variant="filled" rows="2" />
 							<Button onClick={submit} variant="contained" color="primary">
-								submit
+								{t("submit")}
 							</Button>
 						</form>
 					</div>
@@ -135,10 +137,10 @@ export default function posts({ posts: serverPosts }) {
 	}
 }
 
-posts.getInitialProps = async ({ req }) => {
-	if (!req) {
-		return { post: null };
-	}
+export async function getStaticProps({ req, locale }) {
+	// if (!req) {
+	// 	return { post: null };
+	// }
 	const response = await fetch("http://localhost:4200/posts");
 	const posts = await response.json();
 
@@ -146,7 +148,10 @@ posts.getInitialProps = async ({ req }) => {
 	const user = await responseUsers.json();
 
 	return {
-		posts,
-		user,
+		props: {
+			posts,
+			user,
+			...(await serverSideTranslations(locale, ["common"])),
+		},
 	};
-};
+}
