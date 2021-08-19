@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -121,8 +121,36 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 
 		// you can do interpolation
 		router.push(router.pathname, router.query, { locale: `${lan}` });
-		// router.push({ pathname, query }, asPath, { locale: nextLocale });
+		localStorage.setItem("lan", lan);
 	};
+	function getDefaultLan() {
+		const ISSERVER = typeof window === "undefined";
+		let defaultValueIndex;
+		if (!ISSERVER) {
+			var currentLan = localStorage.getItem("lan");
+		}
+		switch (currentLan) {
+			case "en":
+				defaultValueIndex = 1;
+				console.log("en", defaultValueIndex);
+				break;
+			case "ka":
+				defaultValueIndex = 2;
+				console.log("ka", defaultValueIndex);
+				break;
+			case "ru":
+				defaultValueIndex = 3;
+				console.log("ru", defaultValueIndex);
+				break;
+			default:
+				console.log("...");
+		}
+		return defaultValueIndex;
+	}
+
+	useEffect(() => {
+		getDefaultLan();
+	}, []);
 
 	return (
 		<div className={classes.root}>
@@ -216,7 +244,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 					<ListItem button>
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="grouped-select">{t("changeLanguage")}</InputLabel>
-							<Select defaultValue="1" id="grouped-select">
+							<Select defaultValue={getDefaultLan} id="grouped-select">
 								<MenuItem onClick={() => changeLan("en")} value={1}>
 									ENG
 								</MenuItem>

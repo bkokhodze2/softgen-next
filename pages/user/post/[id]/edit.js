@@ -14,6 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import the FontAwesomeIcon component
 import { faArrowLeft, faTrashAlt, faEllipsisV, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Router from "next/router";
+
 export default function post({ post: serverPost }) {
 	const [post, setPost] = useState();
 	const [userinfo, setUserinfo] = useState([]);
@@ -21,6 +22,7 @@ export default function post({ post: serverPost }) {
 	const [newTitle, setNewTitle] = useState("");
 
 	const router = useRouter();
+
 	async function load() {
 		const response = await fetch(`http://localhost:4200/posts/${router.query.id}`);
 		const data = await response.json();
@@ -91,7 +93,8 @@ export default function post({ post: serverPost }) {
 			<div className={classes.goBack}>
 				<Button onClick={() => Router.back()} className={classes.goBack__Btn} variant="contained">
 					<a>
-						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>go back to posts
+						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
+						goBackToPosts
 					</a>
 				</Button>
 			</div>

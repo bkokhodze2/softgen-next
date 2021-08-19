@@ -10,8 +10,10 @@ import classes from "/styles/post.module.scss";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Router from "next/router";
-
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+
+
 import { faArrowLeft, faTrashAlt, faEllipsisV, faEdit } from "@fortawesome/free-solid-svg-icons";
 export default function post({ post: serverPost }) {
 	const [post, setPost] = useState(serverPost);
@@ -28,7 +30,7 @@ export default function post({ post: serverPost }) {
 			const responseuser = await fetch(`http://localhost:4200/users/${data.userId}`);
 			const userjson = await responseuser.json();
 			setUserinfo(userjson);
-		}
+		}``
 		if (!serverPost) {
 			load();
 		}
@@ -71,17 +73,15 @@ export default function post({ post: serverPost }) {
 	);
 }
 
-post.getInitialProps = async ({ query, req, locale }) => {
-	if (!req) {
-		return { post: null };
-	}
+export async function getServerSideProps({ locale, query }) {
 	const response = await fetch(`http://localhost:4200/posts/${query.id}`);
 	const post = await response.json();
 
-	console.log(post);
-
 	return {
-		post,
-		// ...(await serverSideTranslations(locale, ["common"])),
+		props: {
+			post,
+			...(await serverSideTranslations(locale, ["common"])),
+			// Will be passed to the page component as props
+		},
 	};
-};
+}

@@ -29,5 +29,6 @@
 	"username": "username",
 	"enterUsername": "enter username",
 	"password": "password",
-	"enterpassword": "enter password"
+	"enterpassword": "enter password",
+	"save": "save"
 }
