@@ -14,12 +14,15 @@ import Menu from "@material-ui/core/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import the FontAwesomeIcon component
 import { faArrowLeft, faTrashAlt, faEllipsisV, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Router from "next/router";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { useTranslation } from "next-i18next";
+
 export default function post({ post: serverPost }) {
 	const [post, setPost] = useState();
 	const [userinfo, setUserinfo] = useState([]);
 	const [newBody, setNewBody] = useState("");
 	const [newTitle, setNewTitle] = useState("");
-
+	// const { t, i18n } = useTranslation("common");
 	const router = useRouter();
 	async function load() {
 		const response = await fetch(`http://localhost:4200/posts/${router.query.id}`);
@@ -91,7 +94,8 @@ export default function post({ post: serverPost }) {
 				<Button onClick={() => Router.back()} className={classes.goBack__Btn} variant="contained">
 					<a>
 						{" "}
-						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>go back to post admin
+						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
+						go Back To Posts
 					</a>
 				</Button>
 			</div>
@@ -130,5 +134,6 @@ post.getInitialProps = async ({ query, req }) => {
 
 	return {
 		post,
+		// ...(await serverSideTranslations(locale, ["common"])),
 	};
 };

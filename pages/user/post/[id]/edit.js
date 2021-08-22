@@ -94,7 +94,7 @@ export default function post({ post: serverPost }) {
 				<Button onClick={() => Router.back()} className={classes.goBack__Btn} variant="contained">
 					<a>
 						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
-						goBackToPosts
+						go Back To Posts
 					</a>
 				</Button>
 			</div>

@@ -41,6 +41,13 @@
       "title": "asdasdas",
       "body": "asdasdasd",
       "date": 1629060911369
+    },
+    {
+      "id": 1629060921354,
+      "userId": "2",
+      "title": "as das d asd ",
+      "body": "ds f",
+      "date": 1629060921354
     }
   ],
   "users": [
@@ -115,20 +122,6 @@
       "title": "qwe",
       "body": "qwe2",
       "date": 1629060908289
-    },
-    {
-      "id": 1629060921354,
-      "userId": "2",
-      "title": "as das d asd ",
-      "body": "ds f",
-      "date": 1629060921354
-    },
-    {
-      "id": 1629060923427,
-      "userId": "2",
-      "title": "12 12 1",
-      "body": "2 3 123",
-      "date": 1629060923427
     },
     {
       "id": 1629060926846,

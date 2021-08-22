@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
 import theme from "../src/theme";
+const ISSERVER = typeof window === "undefined";
+
+if (!ISSERVER) {
+	var currentLan = localStorage.getItem("lan");
+}
 export default class MyDocument extends Document {
+	constructor(props) {
+		super(props);
+		this.state = { lan: currentLan };
+	}
+
 	render() {
 		return (
-			<Html>
+			<Html lang={this.state.lan}>
 				<Head>
 					<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 					<meta name="theme-color" content={theme.palette.primary.main} />
 					<link rel="preconnect" href="https://fonts.googleapis.com" />
-					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
 					<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
 					<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 				</Head>

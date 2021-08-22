@@ -30,7 +30,7 @@ export default function post({ post: serverPost }) {
 			const responseuser = await fetch(`http://localhost:4200/users/${data.userId}`);
 			const userjson = await responseuser.json();
 			setUserinfo(userjson);
-		}``
+		}
 		if (!serverPost) {
 			load();
 		}
