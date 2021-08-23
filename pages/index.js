@@ -51,7 +51,6 @@ const SignInOutContainer = () => {
 
 	const changeLan = (lan) => {
 		i18n.changeLanguage(lan);
-
 		// you can do interpolation
 		router.push(router.pathname, router.query, { locale: `${lan}` });
 		localStorage.setItem("lan", lan);
@@ -109,7 +108,7 @@ const SignInOutContainer = () => {
 
 	return (
 		<Paper elevation={20} style={paperStyle}>
-			<div className={classes.ListItem} button>
+			<div className={classes.ListItem} button="true">
 				<FormControl className={classes.formControl}>
 					<InputLabel className={classes.inputLabel} htmlFor="grouped-select">
 						{t("changeLanguage")} <LanguageIcon className={classes.lanSvg} />

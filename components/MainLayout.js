@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -97,11 +97,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function MainLayout({ children, title = "user blog", keyWords = "blog", userId }) {
+export function MainLayout({ children, title = "user blog", keyWords = "blog" }) {
 	const styles = useStyles();
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState(true);
 	const router = useRouter();
+	const [userId, setUserId] = useState("");
 	const { t, i18n } = useTranslation("common");
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -114,7 +115,42 @@ export function MainLayout({ children, title = "user blog", keyWords = "blog", u
 	const changeLan = (lan) => {
 		i18n.changeLanguage(lan);
 		router.push(router.pathname, router.query, { locale: `${lan}` });
+		localStorage.setItem("lan", lan);
 	};
+
+	function getDefaultLan() {
+		const ISSERVER = typeof window === "undefined";
+		let defaultValueIndex;
+		if (!ISSERVER) {
+			var currentLan = localStorage.getItem("lan");
+		}
+		switch (currentLan) {
+			case "en":
+				defaultValueIndex = 1;
+				console.log("en", defaultValueIndex);
+				break;
+			case "ka":
+				defaultValueIndex = 2;
+				console.log("ka", defaultValueIndex);
+				break;
+			case "ru":
+				defaultValueIndex = 3;
+				console.log("ru", defaultValueIndex);
+				break;
+			default:
+				console.log("...");
+		}
+		return defaultValueIndex;
+	}
+
+	const getUserId = () => {
+		setUserId(localStorage.getItem("user"));
+	};
+
+	useEffect(() => {
+		getDefaultLan();
+		getUserId();
+	}, []);
 
 	return (
 		<div className={styles.root}>
@@ -158,7 +194,7 @@ export function MainLayout({ children, title = "user blog", keyWords = "blog", u
 					[styles.drawerOpen]: open,
 					[styles.drawerClose]: !open,
 				})}
-				styles={{
+				classes={{
 					paper: clsx({
 						[styles.drawerOpen]: open,
 						[styles.drawerClose]: !open,
@@ -182,7 +218,7 @@ export function MainLayout({ children, title = "user blog", keyWords = "blog", u
 					<ListItem button>
 						<FormControl className={styles.formControl}>
 							<InputLabel htmlFor="grouped-select">{t("changeLanguage")}</InputLabel>
-							<Select defaultValue="1" id="grouped-select">
+							<Select defaultValue={getDefaultLan} id="grouped-select">
 								<MenuItem onClick={() => changeLan("en")} value={1}>
 									ENG
 								</MenuItem>
@@ -212,6 +248,46 @@ export function MainLayout({ children, title = "user blog", keyWords = "blog", u
 				</List>
 			</Drawer>
 			<main className={`${styles.content} ${style.main}`}>{children}</main>
+			<style jsx>{`
+				nav {
+					position: fixed;
+					height: 60px;
+					left: 0;
+					right: 0;
+					top: 0;
+					background: darkblue;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					z-index: 1;
+				}
+				.header {
+					display: flex;
+					justify-content: sapce-between;
+				}
+				li {
+					list-style-type: none;
+				}
+				body {
+					margin: 0;
+				}
+				.active-nav {
+					background: black;
+				}
+				.active-nav a {
+					color: #ff1414;
+					font-weight: bold;
+				}
+				nav a {
+					color: white;
+					text-transform: uppercase;
+					text-decoration: none;
+				}
+				main {
+					margin-top: 60px;
+					padding: 1rem;
+				}
+			`}</style>
 		</div>
 	);
 }

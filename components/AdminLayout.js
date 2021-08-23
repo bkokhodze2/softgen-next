@@ -100,11 +100,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export function AdminLayout({ children, title = "blog", keyWords = "blog", userId }) {
+export function AdminLayout({ children, title = "blog", keyWords = "blog" }) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(true);
 	const router = useRouter();
+	const [userId, setUserId] = useState("");
 
 	const { t, i18n } = useTranslation("common");
 
@@ -115,10 +116,9 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
- 
+
 	const changeLan = (lan) => {
 		i18n.changeLanguage(lan);
-
 		// you can do interpolation
 		router.push(router.pathname, router.query, { locale: `${lan}` });
 		localStorage.setItem("lan", lan);
@@ -148,8 +148,13 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 		return defaultValueIndex;
 	}
 
+	const getUserId = () => {
+		setUserId(localStorage.getItem("user"));
+	};
+
 	useEffect(() => {
 		getDefaultLan();
+		getUserId();
 	}, []);
 
 	return (
@@ -206,7 +211,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 				</div>
 				<Divider />
 				<List>
-					<Link href={"/admin/posts"}>
+					<Link href={`/admin/posts?userId=${userId}`}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
@@ -214,7 +219,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 							<ListItemText primary={t("posts")} />
 						</ListItem>
 					</Link>
-					<Link className={router.pathname == "/admin/post/table" ? "active-nav" : ""} href={"/admin/post/table"}>
+					<Link className={router.pathname == "/admin/post/table" ? "active-nav" : ""} href={`/admin/post/table?userId=${userId}`}>
 						<ListItem button>
 							<ListItemIcon>
 								<MailIcon />
@@ -222,7 +227,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 							<ListItemText primary={t("postsTable")} />
 						</ListItem>
 					</Link>
-					<Link href={"/admin/post/approve"}>
+					<Link href={`/admin/post/approve?userId=${userId}`}>
 						<ListItem button>
 							<ListItemIcon>
 								<PostAddIcon />
@@ -230,7 +235,7 @@ export function AdminLayout({ children, title = "blog", keyWords = "blog", userI
 							<ListItemText primary={t("approvePosts")} />
 						</ListItem>
 					</Link>
-					<Link href={"/admin/newUser"}>
+					<Link href={`/admin/newUser?userId=${userId}`}>
 						<ListItem button>
 							<ListItemIcon>
 								<GroupAddIcon />

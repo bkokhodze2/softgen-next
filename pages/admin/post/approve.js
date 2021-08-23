@@ -6,13 +6,15 @@ import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CustomizedSnackbars from "../../../components/alert";
 import classes from "../../../styles/index.module.scss";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function ApprovePost({ newpost: serverPosts }) {
 	const [newPost, setNewPost] = useState([]);
 	const [openAlert, setOpenAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 	const [isAlertSuccess, setIsAlertSuccess] = useState(false);
-
+	const { t, i18n } = useTranslation("common");
 	const API_HOST = "http://localhost:4200";
 	const INVENTORY_API_URL = `${API_HOST}/newPosts`;
 
@@ -77,7 +79,8 @@ export default function ApprovePost({ newpost: serverPosts }) {
 			});
 	};
 
-	function ApproveBtns(props) {
+	function ApproveBtns({ locale }) {
+		const { t, i18n } = useTranslation("common");
 		return (
 			<div className={classes.approveBtns}>
 				<Button style={{ background: "#4caf50", color: "#FFF" }} variant="contained" onClick={() => approvePost(props.data)} startIcon={<CheckCircleOutlineIcon />}>
@@ -95,7 +98,7 @@ export default function ApprovePost({ newpost: serverPosts }) {
 	}, []);
 	const columns = [
 		{ title: "ID", field: "id", editable: false },
-		{ title: "title", field: "title" },
+		{ title: t("title"), field: "title" },
 		{ title: "body", field: "body" },
 		{ title: "date", field: "date", render: (rowData) => new Date(rowData.date).toLocaleDateString() },
 		{ title: "userId", field: "userId" },
@@ -114,21 +117,34 @@ export default function ApprovePost({ newpost: serverPosts }) {
 		<AdminLayout>
 			{openAlert && <CustomizedSnackbars message={alertMessage} success={isAlertSuccess} />}
 			<div className="App">
-				<h1 align="center">approve/reject post</h1>
-				<MaterialTable title="Employee Data" data={newPost} columns={columns} />
+				<h1 align="center">{t("approveRejectPost")}</h1>
+				<MaterialTable title={t("title")} data={newPost} columns={columns} />
 			</div>
 		</AdminLayout>
 	);
 }
 
-ApprovePost.getInitialProps = async ({ req }) => {
-	if (!req) {
-		return { post: null };
-	}
+// ApprovePost.getInitialProps = async ({ req }) => {
+// 	if (!req) {
+// 		return { post: null };
+// 	}
+// 	const response = await fetch("http://localhost:4200/newPosts");
+// 	const newpost = await response.json();
+
+// 	return {
+// 		newpost,
+// 	};
+// };
+
+export async function getServerSideProps({ locale, query }) {
 	const response = await fetch("http://localhost:4200/newPosts");
 	const newpost = await response.json();
 
 	return {
-		newpost,
+		props: {
+			newpost,
+			...(await serverSideTranslations(locale, ["common"])),
+			// Will be passed to the page component as props
+		},
 	};
-};
+}

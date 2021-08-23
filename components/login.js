@@ -31,6 +31,12 @@ const Login = ({ handleChange }) => {
 		if (data.length == 1) {
 			console.log("datadan--", data[0].password, "valuedan", values.password);
 			if (data[0].password == values.password) {
+				const ISSERVER = typeof window === "undefined";
+				if (!ISSERVER) {
+					localStorage.setItem("user",data[0].userId);
+				}
+
+
 				if (data[0].role == 1) {
 					Router.push({
 						pathname: "/admin/posts",

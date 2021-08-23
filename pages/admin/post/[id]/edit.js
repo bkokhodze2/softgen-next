@@ -14,43 +14,45 @@ import Menu from "@material-ui/core/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import the FontAwesomeIcon component
 import { faArrowLeft, faTrashAlt, faEllipsisV, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Router from "next/router";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
-export default function post({ post: serverPost }) {
-	const [post, setPost] = useState();
+export default function post({post}) {
+	console.log("postonj", post);
+	// const [post2, setPost2] = useState();
 	const [userinfo, setUserinfo] = useState([]);
 	const [newBody, setNewBody] = useState("");
 	const [newTitle, setNewTitle] = useState("");
-	// const { t, i18n } = useTranslation("common");
+	const { t, i18n } = useTranslation("common");
 	const router = useRouter();
 	async function load() {
-		const response = await fetch(`http://localhost:4200/posts/${router.query.id}`);
-		const data = await response.json();
-		setPost(data);
-		setNewBody(data.body);
-		setNewTitle(data.title);
-		const responseUsers = await fetch(`http://localhost:4200/users/${data.userId}`);
+		// const response = await fetch(`http://localhost:4200/posts/${router.query.id}`);
+		// const data = await response.json();
+		// setPost2(data);
+
+		setNewBody(post.body);
+		setNewTitle(post.title);
+		const responseUsers = await fetch(`http://localhost:4200/users/${post.userId}`);
 		const userjson = await responseUsers.json();
 		setUserinfo(userjson);
 	}
 
 	useEffect(() => {
-		if (!serverPost) {
-			load();
-		}
+		// if (!serverPost) {
+		load();
+		// }
 	}, []);
 
 	const API_HOST = "http://localhost:4200";
 	const INVENTORY_API_URL = `${API_HOST}/posts`;
 
-	if (!post) {
-		return (
-			<MainLayout>
-				<p>loading ...</p>
-			</MainLayout>
-		);
-	}
+	// if (!post) {
+	// 	return (
+	// 		<MainLayout>
+	// 			<p>loading ...</p>
+	// 		</MainLayout>
+	// 	);
+	// }
 	const save = () => {
 		fetch(`${INVENTORY_API_URL}/${post.id}`, {
 			method: "PATCH",
@@ -95,7 +97,7 @@ export default function post({ post: serverPost }) {
 					<a>
 						{" "}
 						<FontAwesomeIcon className={classes.icon} icon={faArrowLeft}></FontAwesomeIcon>
-						go Back To Posts
+						{t("goBackToPosts")}
 					</a>
 				</Button>
 			</div>
@@ -125,15 +127,17 @@ export default function post({ post: serverPost }) {
 	);
 }
 
-post.getInitialProps = async ({ query, req }) => {
-	if (!req) {
-		return { post: null };
-	}
+export async function getServerSideProps({ query, req, locale }) {
+	// if (!req) {
+	// 	return { post: null };
+	// }
 	const response = await fetch(`http://localhost:4200/posts/${query.id}`);
 	const post = await response.json();
 
 	return {
-		post,
-		// ...(await serverSideTranslations(locale, ["common"])),
+		props: {
+			post,
+			...(await serverSideTranslations(locale, ["common"])),
+		},
 	};
-};
+}

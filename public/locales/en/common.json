@@ -30,5 +30,12 @@
 	"enterUsername": "enter username",
 	"password": "password",
 	"enterpassword": "enter password",
-	"save": "save"
+	"save": "save",
+	"approveRejectPost": "approve/Reject Post",
+	"approveReject": "approve/reject",
+	"id": "id",
+	"title": "title",
+	"body": "body",
+	"date": "date",
+	"userId": "userId"
 }
